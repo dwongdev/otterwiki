@@ -809,6 +809,15 @@ def test_footnote_multiref():
     assert '<a class="footnote" href="#fnref-27">aa</a>' in html
 
 
+def test_footnote_repeated_ref_label():
+    md = """A[^1] B[^1] C[^1]
+
+[^1]: Footnote text
+"""
+    html, _, _ = render.markdown(md)
+    assert html.count('<a href="#fn-1">1</a>') == 3
+
+
 def test_footnote_not_found():
     md = "Footnote[^1]"
     html, _, _ = render.markdown(md)
