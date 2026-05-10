@@ -47,7 +47,7 @@
       <tbody>
 {% for f in files %}
         <tr class="align-top">
-            <td><a href="{{f.url}}">{% if f.thumbnail_url %}<img src="{{f.thumbnail_url}}"/>{%else%}{{f.thumbnail_icon|safe}}{%endif%}</a></td>
+            <td><a href="{{f.url}}">{% if f.thumbnail_url %}<img src="{{f.thumbnail_url}}" style="max-width:80px; max-height:80px;"/>{%else%}{{f.thumbnail_icon|safe}}{%endif%}</a></td>
             <td><a href="{{f.url}}">{{f.filename}}</a><br/>
             </td>
             <td>{{f.filesize}}

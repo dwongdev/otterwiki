@@ -1545,6 +1545,11 @@ class Attachment:
         ):
             abort(404)
 
+        # PIL handles raster formats only; SVG is vector and the browser
+        # scales it natively, so serve the original file.
+        if self.mimetype == "image/svg+xml":
+            return self.get()
+
         t_start = timer()
         image = PIL.Image.open(BytesIO(storage.load(self.filepath, mode="rb")))
         # store image information
