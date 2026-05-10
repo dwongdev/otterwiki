@@ -448,6 +448,7 @@ class Page:
             response404 = make_response(
                 render_template(
                     "page404.html",
+                    title="{} - not found".format(self.pagename_full),
                     pagename=self.pagename_full,
                     pagepath=self.pagepath,
                 ),
@@ -734,6 +735,7 @@ class Page:
             if handle_draft is None:
                 return render_template(
                     "draft.html",
+                    title="{} - draft".format(self.pagename),
                     pagename=self.pagename,
                     pagepath=self.pagepath,
                     revision=(
@@ -894,9 +896,12 @@ class Page:
                 )
                 fdata[last_index][8] += 1
         menutree = SidebarPageIndex(self.pagepath)
+        title = "{} - blame".format(self.pagename)
+        if self.revision is not None:
+            title = "{} ({})".format(title, self.revision)
         return render_template(
             "blame.html",
-            title="{} - blame {}".format(self.pagename, self.revision),
+            title=title,
             pagepath=self.pagepath,
             pagename=self.pagename,
             blame=fdata,

@@ -116,6 +116,7 @@ def about():
     htmlcontent, _, library_requirements = render.markdown(content)
     return render_template(
         "about.html",
+        title="About",
         htmlcontent=htmlcontent,
         __version__=__version__,
         library_requirements=library_requirements,
@@ -126,6 +127,7 @@ def about():
 def syntax():
     return render_template(
         "syntax.html",
+        title="Syntax",
         in_help=True,
         pagepath="",
     )
@@ -167,6 +169,7 @@ def help(topic=None):
         )
         return render_template(
             "help_syntax.html",
+            title="Help - Syntax",
             toc=toc,
             in_help=True,
             embedding_info=embedding_info,
@@ -185,6 +188,7 @@ def help(topic=None):
     # default help
     return render_template(
         "help.html",
+        title="Help - {}".format(topic.capitalize()) if topic else "Help",
         content=content,
         toc=toc,
         library_requirements=library_requirements,
