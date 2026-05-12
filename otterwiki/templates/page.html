@@ -32,7 +32,7 @@
                         </span>
                         History
                     </a>
-                    <a href="{{ url_for('blame', path=pagepath, revision=resivion) if revision else url_for('blame', path=pagepath) }}" class="dropdown-item-with-icon">
+                    <a href="{{ url_for('blame', path=pagepath, revision=revision) if revision else url_for('blame', path=pagepath) }}" class="dropdown-item-with-icon">
                         <span class="dropdown-icon">
                             <i class="fas fa-people-arrows"></i>
                         </span>

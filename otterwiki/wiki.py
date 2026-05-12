@@ -908,6 +908,7 @@ class Page:
             menutree=menutree.query(),
             custom_menu=SidebarMenu().query(),
             breadcrumbs=self.breadcrumbs(),
+            revision=self.revision,
         )
 
     def diff(self, rev_a=None, rev_b=None):
