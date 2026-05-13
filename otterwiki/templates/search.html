@@ -3,6 +3,8 @@
 {% block navbarsearch %}
 {# don't display two searchbars #}
 {% endblock %}
+{# disables the content-wrapper autofocus in layout.html so the search input keeps focus #}
+{% block disable_autofocus %}1{% endblock %}
 {% block content %}
 <div class="w-600 mw-full">
 <div class="card">
