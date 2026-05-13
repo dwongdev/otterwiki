@@ -11,6 +11,10 @@
     background: #d2d2d2;
 }
 
+.content-wrapper:focus {
+    outline: none;
+}
+
 .navbar-content .dropdown button {
     margin-right: 1rem;
     margin-left: 1rem;
