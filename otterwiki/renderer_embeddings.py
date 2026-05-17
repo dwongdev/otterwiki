@@ -1094,6 +1094,7 @@ optionally filtered by a glob pattern.
 ```
 {{PageIndex
 |src=*
+|style=pageindex/list
 |toc=true/false
 |toggle=true/false
 }}
@@ -1101,8 +1102,9 @@ optionally filtered by a glob pattern.
 
 Options:
 - `src`: glob pattern to filter pages by title (default `*`, matches all pages)
-- `toc`: show page headings (default `false`)
-- `toggle`: show the toggle for the page headings (default `true`)
+- `style`: `pageindex` for the default letter-grouped layout, `list` for a plain unordered list (default `pageindex`)
+- `toc`: show page headings (default `false`; for `style=list` headings are rendered as nested sublists)
+- `toggle`: show the toggle for the page headings (default `true`, ignored for `style=list`)
 
 </div>
 <div class="col-md-4 col-sm-12">
@@ -1130,7 +1132,8 @@ Options:
         from flask import render_template
         from otterwiki.pageindex import PageIndex
 
-        src = args.options.get('src', '*')
+        src = args.options_raw.get('src', '*')
+        style = args.options_raw.get('style', 'pageindex').lower()
         show_toc = args.get_flag('toc', False)
         heading_toggle = args.get_flag('toggle', True)
 
@@ -1149,6 +1152,25 @@ Options:
                 ]
                 if filtered:
                     pages[letter] = filtered
+
+        if style == 'list':
+            items = []
+            for letter in sorted(pages.keys()):
+                for entry in pages[letter]:
+                    item = f'<li><a href="{entry.url}">{entry.title}</a>'
+                    if show_toc and entry.toc:
+                        sub = ''.join(
+                            f'<li><a href="{url}">{header}</a></li>'
+                            for _, header, url in entry.toc
+                        )
+                        item += f'<ul>{sub}</ul>'
+                    item += '</li>'
+                    items.append(item)
+            return (
+                '<div class="pageindex-embedding"><ul>'
+                + ''.join(items)
+                + '</ul></div>'
+            )
 
         togglediv = f"""<div class="d-inline-block custom-switch font-size-12 mb-10">
     <input type="checkbox" id="switch-headings" {"checked" if show_toc else ""} value="" onchange="otterwiki.toggleClass(event.target.checked,'pagetoc')"><label for="switch-headings">Toggle page headings</label>

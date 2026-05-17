@@ -1458,6 +1458,110 @@ def test_pageindex_embedding_src_filter(create_app):
     assert "Dog" not in contents
 
 
+def test_pageindex_embedding_src_star(create_app):
+    author = ("Test Author", "test@example.com")
+    create_app.storage.store(
+        "starindex.md",
+        content="# Index\n{{PageIndex\n|src=*\n}}\n",
+        author=author,
+        message="add star index",
+    )
+    create_app.storage.store(
+        "starindex/alpha.md",
+        content="# Alpha\nAlpha page.",
+        author=author,
+        message="add alpha",
+    )
+    create_app.storage.store(
+        "starindex/beta.md",
+        content="# Beta\nBeta page.",
+        author=author,
+        message="add beta",
+    )
+    client = create_app.test_client()
+    response = client.get("/Starindex/view")
+    assert response.status_code == 200
+    html = response.data.decode()
+    soup = BeautifulSoup(html, "html.parser")
+    pi_div = soup.find("div", class_="pageindex-embedding")
+    assert pi_div is not None
+    contents = pi_div.decode_contents()
+    assert "Alpha" in contents
+    assert "Beta" in contents
+
+
+def test_pageindex_embedding_style_list(create_app):
+    author = ("Test Author", "test@example.com")
+    create_app.storage.store(
+        "listindex.md",
+        content="# Index\n{{PageIndex\n|style=list\n}}\n",
+        author=author,
+        message="add list index",
+    )
+    create_app.storage.store(
+        "listindex/alpha.md",
+        content="# Alpha\nAlpha page.",
+        author=author,
+        message="add alpha",
+    )
+    create_app.storage.store(
+        "listindex/beta.md",
+        content="# Beta\nBeta page.",
+        author=author,
+        message="add beta",
+    )
+    client = create_app.test_client()
+    response = client.get("/Listindex/view")
+    assert response.status_code == 200
+    html = response.data.decode()
+    soup = BeautifulSoup(html, "html.parser")
+    pi_div = soup.find("div", class_="pageindex-embedding")
+    assert pi_div is not None
+    ul = pi_div.find("ul")
+    assert ul is not None
+    # the toggle div should not be rendered for style=list
+    assert soup.find("input", id="switch-headings") is None
+    # no letter-block headings either
+    assert pi_div.find(class_="pageindex-letterblock") is None
+    items = ul.find_all("li")
+    assert len(items) == 2
+    titles = [li.get_text(strip=True) for li in items]
+    assert "Alpha" in titles
+    assert "Beta" in titles
+
+
+def test_pageindex_embedding_style_list_with_toc(create_app):
+    author = ("Test Author", "test@example.com")
+    create_app.storage.store(
+        "listtocindex.md",
+        content="# Index\n{{PageIndex\n|style=list\n|toc=true\n}}\n",
+        author=author,
+        message="add list toc index",
+    )
+    create_app.storage.store(
+        "listtocindex/page.md",
+        content="# Page\n## Section One\n## Section Two\n",
+        author=author,
+        message="add page",
+    )
+    client = create_app.test_client()
+    response = client.get("/Listtocindex/view")
+    assert response.status_code == 200
+    html = response.data.decode()
+    soup = BeautifulSoup(html, "html.parser")
+    pi_div = soup.find("div", class_="pageindex-embedding")
+    assert pi_div is not None
+    top_ul = pi_div.find("ul")
+    assert top_ul is not None
+    page_li = top_ul.find("li", recursive=False)
+    assert page_li is not None
+    sub_ul = page_li.find("ul")
+    assert sub_ul is not None
+    sub_items = [li.get_text(strip=True) for li in sub_ul.find_all("li")]
+    assert "Section One" in sub_items
+    assert "Section Two" in sub_items
+
+
 def test_pageindex_embedding_toc(create_app):
     author = ("Test Author", "test@example.com")
     create_app.storage.store(
