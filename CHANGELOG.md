@@ -13,23 +13,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Features
 
 - Wrap page content in `<article>` for browser reader mode ([c3ec872](https://github.com/redimp/otterwiki/commit/c3ec872)).
-- Add housekeeping security check, restricted to admins ([1109a5a](https://github.com/redimp/otterwiki/commit/1109a5a) by @deseven, [30be0d2](https://github.com/redimp/otterwiki/commit/30be0d2)).
-- Report passed security checks alongside issues ([0e4c76e](https://github.com/redimp/otterwiki/commit/0e4c76e)).
+- Add housekeeping security check, restricted to admins, see #476 ([1109a5a](https://github.com/redimp/otterwiki/commit/1109a5a) by @deseven, [30be0d2](https://github.com/redimp/otterwiki/commit/30be0d2)).
+- Report passed security checks alongside issues, see #476 ([0e4c76e](https://github.com/redimp/otterwiki/commit/0e4c76e)).
 
 ### Bug Fixes
 
 - Set autofocus on the main content wrapper ([d6928e0](https://github.com/redimp/otterwiki/commit/d6928e0)).
-- Correct blame link to historic revision ([bc38ec3](https://github.com/redimp/otterwiki/commit/bc38ec3)).
-- Set `<title>` for blame, about, syntax, help, draft, 404, and edit pages ([e15dbef](https://github.com/redimp/otterwiki/commit/e15dbef), [dc7dc4a](https://github.com/redimp/otterwiki/commit/dc7dc4a) by @civviGH).
+- Correct blame link to historic revision, see #484 ([bc38ec3](https://github.com/redimp/otterwiki/commit/bc38ec3)).
+- Set `<title>` for blame, about, syntax, help, draft, 404, and edit pages, see #485 ([e15dbef](https://github.com/redimp/otterwiki/commit/e15dbef), [dc7dc4a](https://github.com/redimp/otterwiki/commit/dc7dc4a) by @civviGH).
 - Render repeated footnote references with same number ([4179fe1](https://github.com/redimp/otterwiki/commit/4179fe1)).
 - Log mermaid parse errors to the browser console ([f81c4a4](https://github.com/redimp/otterwiki/commit/f81c4a4)).
 - Serve SVG attachments without PIL thumbnailing ([2c4a4b1](https://github.com/redimp/otterwiki/commit/2c4a4b1)).
-- Forward to original page after login from all permission gates ([3734d93](https://github.com/redimp/otterwiki/commit/3734d93) by @Harriotskelli, [01327dd](https://github.com/redimp/otterwiki/commit/01327dd), [faa85d5](https://github.com/redimp/otterwiki/commit/faa85d5)).
+- Forward to original page after login from all permission gates, see #483 ([3734d93](https://github.com/redimp/otterwiki/commit/3734d93) by @Harriotskelli, [01327dd](https://github.com/redimp/otterwiki/commit/01327dd), [faa85d5](https://github.com/redimp/otterwiki/commit/faa85d5)).
 
 ### Dependencies
 
-- Bump gitpython from 3.1.47 to 3.1.50 ([f9b72f4](https://github.com/redimp/otterwiki/commit/f9b72f4), [d3418e4](https://github.com/redimp/otterwiki/commit/d3418e4) by @dependabot).
-- Bump mistune from 3.2.0 to 3.2.1 ([8db1217](https://github.com/redimp/otterwiki/commit/8db1217) by @dependabot).
+- Bump gitpython from 3.1.47 to 3.1.50, see #482 ([f9b72f4](https://github.com/redimp/otterwiki/commit/f9b72f4), [d3418e4](https://github.com/redimp/otterwiki/commit/d3418e4) by @dependabot).
+- Bump mistune from 3.2.0 to 3.2.1, see #479 ([8db1217](https://github.com/redimp/otterwiki/commit/8db1217) by @dependabot).
 
 ## [v2.20.4](https://github.com/redimp/otterwiki/releases/tag/v2.20.4) - 2026-05-01
 
